@@ -6,9 +6,9 @@ import json
 # Insert API key from the Branch dashboard **
 branch_key = '[YOUR BRANCH KEY]'
 # Branch endpoint for bulk create
-branchendpoint = "https://api2.branch.io/v1/url/bulk/"
+endpoint = "https://api2.branch.io/v1/url/bulk/"
 # Batch number how many links to create per request
-batchNum = 400
+batchNum = 500
 # file names
 inputFileName = '[input file]'
 outputFileName = '[output file]'
@@ -23,7 +23,7 @@ writer = csv.writer(outputFile)
 # Uncomment the next line if you want the script to skip the first line of the CSV
 # next(reader)
 
-bulkCreateRequest = branchendpoint + branch_key
+bulkCreateRequest = endpoint + branch_key
 
 # Function to hit branch endpoint for bulk create
 def bulkCreateHandler(jsonObject):
@@ -54,9 +54,9 @@ for row in reader:
         "feature": "referrals",
         "channel": "web",
         "data": {
-            "$marketing_title": "Zip Referrals",
+            "$marketing_title": "Referrals",
             "$og_description": "Refer your friends",
-            "$fallback_url": "https://account.zipmoney.com.au",
+            "$fallback_url": "https://example.com",
             "$web_only": True,
             "$referrerID": referrerID,
             "$one_time_use": False,

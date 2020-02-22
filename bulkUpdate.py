@@ -7,8 +7,8 @@ import json
 branch_key = "[YOUR BRANCH KEY]"
 branch_secret = "[YOUR BRANCH SECRECT]"
 file_name = '[CSV FILE NAME]'
-# Constants
-branchendpoint = "https://api2.branch.io/v1/url?url="
+# EndPoint
+endpoint = "https://api2.branch.io/v1/url?url="
 
 # Insert filename for CSV containing links to update in first column, and values to add in second column **
 ifile = open(file_name, "r")
@@ -22,8 +22,9 @@ next(reader)
 for row in reader:
 
     # Retrieve link data for link being updated
+    # Assuming the input CSV file, first column is the link url to be updated
     url = urllib.parse.quote_plus(row[0])
-    getrequest = branchendpoint + url + "&branch_key=" + branch_key
+    getrequest = endpoint + url + "&branch_key=" + branch_key
     linkdata = requests.get(getrequest)
     jsonData = json.loads(linkdata.text)
 
@@ -36,7 +37,7 @@ for row in reader:
     jsonData["branch_secret"] = branch_secret
 
     jsonData["data"]["$web_only"] = True
-    jsonData["data"]["$fallback_url"] = "https://zip.co/create-an-account"
+    jsonData["data"]["$fallback_url"] = "https://example.com"
 
     # for key_to_update in jsonData.get("data", "no_data"):
     #     # Update specified data key
@@ -53,18 +54,16 @@ for row in reader:
         # if key_to_update == "utm_medium":
         #     jsonData["data"]["~feature"] = jsonData["data"]["utm_medium"]
         #     del jsonData["data"]["utm_medium"]
-
+    # Delete type & alias otherwise update request won't be successful
     if jsonData.get('type', None) is not None:
         del jsonData['type']
     if jsonData.get('alias', None):
         del jsonData['alias']
     payload = json.dumps(jsonData)
-    putrequest = branchendpoint + url
+    putrequest = endpoint + url
 
     print(putrequest)
-    r = requests.put(putrequest, json=jsonData)
     print("\n")
-    print(r.url)
-
+    r = requests.put(putrequest, json=jsonData)
 
 ifile.close()
