@@ -1,5 +1,4 @@
 # branch-useful-python-scripts
-# branch-useful-python-scripts
 ## Prerequisite
 
  1. Installed Python3 
