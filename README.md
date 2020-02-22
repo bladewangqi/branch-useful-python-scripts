@@ -34,6 +34,6 @@ There are a few values(not including typical branch key, secret..) you need to p
 #### How to get start_link_id & cookie
 Go to branch dashboard -> Quick links then go the last page till you see "Load More" button.
 Open your chrome debugger, filter Network transaction for https://branch.dashboard.branch.io/v1/link/marketing then you can see start_link_id & Cookie like below image.
-
+![How to get start_link_id & Cookie](https://lh3.google.com/u/0/d/1wiTgUzL3y45d1SnaM_6Hct6mfo8brpCM=w3584-h1820-iv1)
 ### Note
 This script is pretty dangerous, since once you deleted a link there is no more for branch to recover the deletion, so please make sure you are aware what you are doing. Tips: provide very restrict matching criteria will help you to delete some links accidentally.
