@@ -64,7 +64,6 @@ for row in reader:
     print(long_link)
     if row.get('link', None) is not None:
         row['link'] = long_link
-    print(row.values())
     writer.writerow(row.values())
 
 input_file.close()
