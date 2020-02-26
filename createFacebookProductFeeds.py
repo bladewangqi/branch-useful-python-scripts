@@ -4,14 +4,15 @@ import csv
 import urllib
 
 # Source file's name
-input_file_name = '[input file name]'
+input_file_name = '[YOUR PRODCUT FEEDS FILE]'
 # File name of generated product feed links
-output_file_name = '[output file name]]'
+output_file_name = 'product_feed_links.csv'
 # Link domain for your Branch dashboard
-link_domain = 'https://[link domain]'
+link_domain = 'https://[YOUR BRANCH LINK DOMAIN]'
 
 input_file = open(input_file_name, "r")
 reader = csv.DictReader(input_file, delimiter=',')
+
 
 output_file = open(output_file_name, "w")
 writer = csv.writer(output_file)
@@ -21,9 +22,8 @@ def generateQueryStrings(dict):
     query_str = "&".join("%s=%s" % (k,v) for k,v in dict.items())
     return query_str
 
-
-# Uncomment the next line if you want the script to skip the first line of the CSV
-next(reader)
+header = next(reader)
+writer.writerow(header)
 
 campaign_name = 'DPAtrial' # or {{campaign.name}} if you want this field to be populate by Facebook
 
@@ -62,7 +62,10 @@ for row in reader:
 
     # Write the long link into output_file
     print(long_link)
-    writer.writerow([long_link])
+    if row.get('link', None) is not None:
+        row['link'] = long_link
+    print(row.values())
+    writer.writerow(row.values())
 
 input_file.close()
 output_file.close()
